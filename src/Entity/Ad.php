@@ -37,6 +37,24 @@ class Ad
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Fuel::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $fuel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Gearbox::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gearbox;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +104,42 @@ class Ad
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getFuel(): ?Fuel
+    {
+        return $this->fuel;
+    }
+
+    public function setFuel(?Fuel $fuel): self
+    {
+        $this->fuel = $fuel;
+
+        return $this;
+    }
+
+    public function getGearbox(): ?Gearbox
+    {
+        return $this->gearbox;
+    }
+
+    public function setGearbox(?Gearbox $gearbox): self
+    {
+        $this->gearbox = $gearbox;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Annonces
+{% endblock %}
+
+{% block body %}
+	<h1>Les Annonces</h1>
+	<div class="row">
+		{% for i in 1..3 %}
+			<div class="col">
+				<div class="card">
+					<img src="https://picsum.photos/200/200" class="img-fluid" alt="Image du produit">
+					<div class="card-body">
+						<h4 class="card-title">Titre de l'annonce n.{{ i }}</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, iste.</p>
+						<p class="card-text">5*</p>
+						<p class="card-text">20 &euro;</p>
+						<a href="#" class="btn btn-primary">Click</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}
+	Créér une annonce
+{% endblock %}
+
+{% block body %}
+	<h1>Créer une annonce</h1>
+
+	{#{{ form(formView) }}{% endblock %}#}
+
+	{{ form_start (formView) }}
+
+	{{ form_errors (formView) }}
+	{#{{ form_widget (formView) }}#}
+
+	{{ form_row(formView.title) }}
+	{{ form_row(formView.price) }}
+	{{ form_row(formView.year) }}
+	{{ form_row(formView.fuel) }}
+	{{ form_row(formView.category) }}
+	{{ form_row(formView.gearbox) }}
+	{{ form_row(formView.description) }}
+
+
+	<button type="submit" class="btn btn-primary">Créer</button>
+
+	{{ form_end (formView) }}
+
+{% endblock %}

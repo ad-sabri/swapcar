@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Une annonce: x
+{% endblock %}
+
+{% block body %}
+
+	<h1>Titre de l'annonce</h1>
+
+	<div class="row">
+		<div class="col-4">
+			<img class="img-fluid" src="https://picsum.photos/400/400" alt="image test">
+		</div>
+		<div class="col-4">
+			<span class="badge badge-warning">Type</span>
+			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, voluptatum!</p>
+			<p>Prix: 20 &euro;</p>
+			<button class="btn btn-primary">Click</button>
+		</div>
+	</div>
+
+{% endblock %}

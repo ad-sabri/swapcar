@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+
+	Inscrivez-vous
+
+{% endblock %}
+
+{% block body %}
+	<h1>Inscrivez-vous</h1>
+
+	{{ form_start(formView) }}
+	{{ form_widget(formView) }}
+	<input type="submit" value="ok" formnovalidate>
+	{{ form_end(formView) }}
+
+
+</input>{% endblock %}
