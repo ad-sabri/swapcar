@@ -1,22 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Une annonce: x
+{% block title %}
+	{{ ad.title }}
 {% endblock %}
 
 {% block body %}
-
-	<h1>Titre de l'annonce</h1>
+	<h1>{{ ad.title }}</h1>
 
 	<div class="row">
 		<div class="col-4">
 			<img class="img-fluid" src="https://picsum.photos/400/400" alt="image test">
 		</div>
-		<div class="col-4">
-			<span class="badge badge-warning">Type</span>
-			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, voluptatum!</p>
-			<p>Prix: 20 &euro;</p>
-			<button class="btn btn-primary">Click</button>
+		<div class="col-6">
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<th scope="row">Catégorie</th>
+						<td></td>
+						<td>{{ ad.category.name }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">Année</th>
+						<td></td>
+						<td>{{ ad.year }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">Boite de Vitesse</th>
+						<td></td>
+						<td>{{ ad.gearbox.name }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">Craburant</th>
+						<td></td>
+						<td>{{ ad.fuel.name }}</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">Note</th>
+						<td></td>
+						<td>
+							{% for i in 1..5 %}
+								<i class="fas fa-star"></i>
+							{% endfor %}
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th scope="row">Description</th>
+						<td></td>
+						<td>{{ ad.description }}</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="container mt-5">
+			<p class="lead">Commentaires</p>
+			{% for comment in ad.comments %}
+				{% if comment.parent == null %}
+					<div class="row d-flex justify-content-center">
+						<div class="col-md-8">
+							<div class="card p-3">
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="user d-flex flex-row align-items-center">
+										<img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+										<span>
+											<small class="font-weight-bold text-primary">{{ comment.author.firstname }}</small>
+											<small class="font-weight-bold">{{ comment.content }}</small>
+										</span>
+									</div>
+									<small>le jj mois</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-
 {% endblock %}

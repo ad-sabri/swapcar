@@ -14,11 +14,11 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'mail',
+                'label' => 'Votre adresse mail:',
             ])
 
             ->add('password', PasswordType::class, [
-                'label' => 'mdp'
+                'label' => 'Votre mot de passe:'
             ]);
     }
 

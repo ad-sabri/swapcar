@@ -9,10 +9,15 @@
 {% block body %}
 	<h1>Inscrivez-vous</h1>
 
-	{{ form_start(formView) }}
-	{{ form_widget(formView) }}
-	<input type="submit" value="ok" formnovalidate>
-	{{ form_end(formView) }}
+	<div class="row">
+		<div class="col-md-8">
+			{{ form_start(formView) }}
+			{{ form_widget(formView) }}
+			<input type="submit" value="ok" formnovalidate>
+			{{ form_end(formView) }}
+		</div>
+
+	</div>
 
 
 </input>{% endblock %}

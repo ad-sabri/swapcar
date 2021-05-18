@@ -12,13 +12,20 @@
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		{% endblock %}
 
-		{% block javascripts %}
-			{#{{ encore_entry_script_tags('app') }}#}
-		{% endblock %}
+		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
+		<script src="https://cdn.jsdelivr.net/npm/axentix@1.2.1/dist/js/axentix.min.js"></script>
+		{% block javascripts %}{% endblock %}
+		<script src="{{ asset('js/scripts.js') }}"></script>
 	</head>
-	<body style="background-color: #6F7170">
+	<body style="background-color: white;">
 		{% include "partials/_navbar.html.twig" %}
 		<div class="container pt-5"> {% block body %}{% endblock %}
 			</div>
 		</body>
+		{% block footer %}
+			{% include "partials/_footer.html.twig" %}
+		{% endblock %}
+
 	</html>
