@@ -13,7 +13,9 @@ use App\Form\CommentType;
 use Cocur\Slugify\Slugify;
 use App\Repository\AdRepository;
 use App\Repository\CommentRepository;
+use ArrayObject;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Stmt\Break_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,6 +97,7 @@ class AdController extends AbstractController
             24 * 60 * 60
         );
 
+
         //Transormation de la periode en datetime
         $days = array_map(function ($dayTimestamp) {
             return new \DateTime(date('Y-m-d', $dayTimestamp));
@@ -102,11 +105,45 @@ class AdController extends AbstractController
 
         $reservation = array_merge($reservation, $days);
 
-        //dd($reservation);
+        //Conversion du tableau de reservation en string pour comparer aux annonces
+
+        $stringReservation = [];
+
+        $stringReservation = array_map(function ($day) {
+            return $day->format('Y-m-d');
+        }, $reservation);
+
+        //dd($stringReservation);
+        $libres = [];
+
+        foreach ($ads as $ad) {
+
+            //dd(gettype($ad));
+
+            //dd($ad->getNotAvaibleDays());
+            //var_dump($ad->getId());
+            //dd($ad);
+
+            $unbookableDays = $ad->getNotAvaibleDays();
+
+            if (empty(array_intersect($stringReservation, $unbookableDays))) {
+
+                //echo "<p>Annonce numéro: " . $ad->getId() . "est disponible";
+                //echo "<br>";
+
+                array_push($libres, $ad);
+            }
+        }
+
+        //dd($libres);
+        //print_r($libres);
 
         return $this->render('ad/results.html.twig', [
             'reservation' => $reservation,
             'ads' => $ads,
+            'ad' => $ad,
+            'libres' => $libres,
+
         ]);
     }
 

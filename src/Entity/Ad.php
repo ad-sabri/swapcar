@@ -228,6 +228,7 @@ class Ad
     public function getNotAvaibleDays()
     {
         $notAvaibleDays = [];
+        $final = [];
 
         //dd($notAvaibleDays);
 
@@ -244,9 +245,13 @@ class Ad
             }, $resultat);
 
             $notAvaibleDays = array_merge($notAvaibleDays, $days);
+
+            $final = array_map(function ($day) {
+                return $day->format('Y-m-d');
+            }, $notAvaibleDays);
         }
 
-        return $notAvaibleDays;
+        return $final;
     }
 
 
