@@ -7,16 +7,18 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Inscrivez-vous</h1>
+	<div class="container mt-5">
+		<h1>Inscrivez-vous</h1>
 
-	<div class="row">
-		<div class="col-md-8">
-			{{ form_start(formView) }}
-			{{ form_widget(formView) }}
-			<input type="submit" value="ok" formnovalidate>
-			{{ form_end(formView) }}
+		<div class="row">
+			<div class="col-md-8">
+				{{ form_start(formView) }}
+				{{ form_widget(formView) }}
+				<input type="submit" value="ok" formnovalidate>
+				{{ form_end(formView) }}
+			</div>
+
 		</div>
-
 	</div>
 
 

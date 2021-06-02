@@ -54,7 +54,7 @@ class AdController extends AbstractController
             ->setMethod('GET')
             ->add('startDate', DateType::class, ['widget' => "single_text"])
             ->add('endDate', DateType::class, ['widget' => "single_text"])
-            ->add('save', SubmitType::class, ['label' => 'check'])
+            ->add('save', SubmitType::class, ['label' => 'Rechercher une annonce'])
             ->getForm();
 
         $form->handleRequest($request);
@@ -97,7 +97,6 @@ class AdController extends AbstractController
             24 * 60 * 60
         );
 
-
         //Transormation de la periode en datetime
         $days = array_map(function ($dayTimestamp) {
             return new \DateTime(date('Y-m-d', $dayTimestamp));
@@ -118,28 +117,18 @@ class AdController extends AbstractController
 
         foreach ($ads as $ad) {
 
-            //dd(gettype($ad));
-
-            //dd($ad->getNotAvaibleDays());
-            //var_dump($ad->getId());
-            //dd($ad);
-
             $unbookableDays = $ad->getNotAvaibleDays();
 
             if (empty(array_intersect($stringReservation, $unbookableDays))) {
-
-                //echo "<p>Annonce numéro: " . $ad->getId() . "est disponible";
-                //echo "<br>";
 
                 array_push($libres, $ad);
             }
         }
 
-        //dd($libres);
-        //print_r($libres);
-
         return $this->render('ad/results.html.twig', [
             'reservation' => $reservation,
+            'debut' => $stringReservation[0],
+            'fin' => $stringReservation[(count($stringReservation) - 1)],
             'ads' => $ads,
             'ad' => $ad,
             'libres' => $libres,
@@ -148,9 +137,49 @@ class AdController extends AbstractController
     }
 
     /**
+     * @Route("/ad/create", name="ad_create") 
+     * @IsGranted("ROLE_USER")
+     */
+
+    public function create(FormFactoryInterface $factory, Request $request, EntityManagerInterface $em, Security $security, UserInterface $user)
+    {
+
+        $slugify = new Slugify();
+
+        $builder = $factory->createBuilder(AdType::class, null);
+
+        $form = $builder->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ad = $form->getData();
+
+            $title = $form->get('title')->getData();
+
+            $slug = $slugify->slugify($title);
+
+            $ad->setSlug($slug);
+            $ad->setAuthor($user);
+
+            $em->persist($ad);
+
+            $em->flush();
+
+            return $this->redirectToRoute("home");
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('ad/create.html.twig', [
+            'formView' => $formView
+        ]);
+    }
+
+    /**
      * @Route("/ad/{slug}", name="ad_show", priority=-1)
      */
-    public function show($slug, AdRepository $adRepository, Request $request, UserInterface $user, EntityManagerInterface $em)
+    public function show($slug, AdRepository $adRepository, Request $request, EntityManagerInterface $em)
     {
 
         $ad = $adRepository->findOneBy([
@@ -171,7 +200,7 @@ class AdController extends AbstractController
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
 
-            $comment->setAuthor($user);
+            //$comment->setAuthor($user);
             $comment->setAd($ad);
 
             $parentid = $commentForm->get("parentid")->getData();
@@ -196,46 +225,6 @@ class AdController extends AbstractController
             'slug' => $slug,
             'ad' => $ad,
             'commentForm' => $commentForm->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/create", name="ad_create")
-     * @IsGranted("ROLE_USER", message="Pas le droit")
-     */
-
-    public function create(FormFactoryInterface $factory, Request $request, EntityManagerInterface $em, Security $security)
-    {
-        $slugify = new Slugify();
-
-        $builder = $factory->createBuilder(AdType::class, null);
-
-        $form = $builder->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $ad = $form->getData();
-
-            $title = $form->get('title')->getData();
-
-            $slug = $slugify->slugify($title);
-
-            $ad->setSlug($slug);
-
-            //dd($ad);
-
-            $em->persist($ad);
-
-            $em->flush();
-
-            return $this->redirectToRoute("home");
-        }
-
-        $formView = $form->createView();
-
-        return $this->render('ad/create.html.twig', [
-            'formView' => $formView
         ]);
     }
 }

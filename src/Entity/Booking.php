@@ -33,6 +33,17 @@ class Booking
      */
     private $ad;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $booker;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +81,30 @@ class Booking
     public function setAd(?Ad $ad): self
     {
         $this->ad = $ad;
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+
+    public function setTotal(int $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getBooker(): ?User
+    {
+        return $this->booker;
+    }
+
+    public function setBooker(?User $booker): self
+    {
+        $this->booker = $booker;
 
         return $this;
     }

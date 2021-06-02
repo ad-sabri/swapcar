@@ -6,26 +6,32 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Créer une annonce</h1>
+	<div class="container mt-5">
+		<h1>Créer une annonce</h1>
 
-	{#{{ form(formView) }}{% endblock %}#}
+		{#{{ form(formView) }}{% endblock %}#}
 
-	{{ form_start (formView) }}
+		{{ form_start (formView) }}
 
-	{{ form_errors (formView) }}
-	{#{{ form_widget (formView) }}#}
+		{{ form_errors (formView) }}
+		{#{{ form_widget (formView) }}#}
 
-	{{ form_row(formView.title) }}
-	{{ form_row(formView.price) }}
-	{{ form_row(formView.year) }}
-	{{ form_row(formView.fuel) }}
-	{{ form_row(formView.category) }}
-	{{ form_row(formView.gearbox) }}
-	{{ form_row(formView.description) }}
+		{{ form_row(formView.title) }}
+		{{ form_row(formView.brand) }}
+		{{ form_row(formView.year) }}
+		{{ form_row(formView.fuel) }}
+		{{ form_row(formView.category) }}
+		{{ form_row(formView.gearbox) }}
+		{{ form_row(formView.locality) }}
+		{{ form_row(formView.images) }}
+		{{ form_row(formView.price) }}
+		{{ form_row(formView.description) }}
 
 
-	<button type="submit" class="btn btn-primary">Créer</button>
+		<button type="submit" class="btn btn-primary">Créer</button>
 
-	{{ form_end (formView) }}
+		{{ form_end (formView) }}
 
+
+	</div>
 {% endblock %}

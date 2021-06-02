@@ -5,16 +5,33 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Annonces disponibles pour la période du:
-	</h1>
+	<div class="container mt-5">
+		<h3>Annonces disponibles cette période:
+		</h3>
 
-	<ul>
-		{% for libre in libres %}
-			<pre>
-			{{ dump(libre.title) }}
-		</pre>
-		{% endfor %}
-	</ul>
-
-
+		<div class="row">
+			{% for libre in libres %}
+				<div class="col-md-4">
+					<div class="card" style="border-radius: 20px; margin-top: 30px;">
+						<img src="https://picsum.photos/200/200" class="img-fluid" alt="Image du produit">
+						<div class="card-body">
+							<h5 class="card-title">{{ libre.title }}</h5>
+							<p class="lead">
+								<i class="fas fa-map-pin"></i>
+								<small>Locality</small>
+							</p>
+							<p class="card-text">
+								{% for i in 1..5 %}
+									<i class="fas fa-star"></i>
+								{% endfor %}
+							</p>
+							<p>X &euro;
+							</p>
+							<a href="{{ path('ad_show', {'slug': libre.slug}) }}" class="btn btn-primary">Accèder à l'annonce</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

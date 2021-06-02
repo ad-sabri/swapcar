@@ -1,85 +1,119 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}
 	{{ ad.title }}
 {% endblock %}
 
 {% block body %}
-	<h1>{{ ad.title }}</h1>
+	<div class="container mt-5">
 
-	<div class="row">
-		<div class="col-4">
-			<img class="img-fluid" src="https://picsum.photos/400/400" alt="image test">
-		</div>
-		<div class="col-6">
-			<table class="table table-hover">
-				<tbody>
-					<tr>
-						<th scope="row">Catégorie</th>
-						<td></td>
-						<td>{{ ad.category.name }}</td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">Année</th>
-						<td></td>
-						<td>{{ ad.year }}</td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">Boite de Vitesse</th>
-						<td></td>
-						<td>{{ ad.gearbox.name }}</td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">Craburant</th>
-						<td></td>
-						<td>{{ ad.fuel.name }}</td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">Note</th>
-						<td></td>
-						<td>
-							{% for i in 1..5 %}
-								<i class="fas fa-star"></i>
-							{% endfor %}
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<th scope="row">Description</th>
-						<td></td>
-						<td>{{ ad.description }}</td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<h1>{{ ad.title }}</h1>
 
-		<div class="container mt-5">
-			<p class="lead">Commentaires</p>
-			{% for comment in ad.comments %}
-				{% if comment.parent == null %}
-					<div class="row d-flex justify-content-center">
-						<div class="col-md-8">
-							<div class="card p-3">
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="user d-flex flex-row align-items-center">
-										<img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-										<span>
-											<small class="font-weight-bold text-primary">{{ comment.author.firstname }}</small>
-											<small class="font-weight-bold">{{ comment.content }}</small>
-										</span>
-									</div>
-									<small>le jj mois</small>
+
+		<div class="row">
+			<div class="col-4">
+				<img class="img-fluid" src="https://picsum.photos/400/400" alt="image test">
+			</div>
+			<div class="col-6">
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<th scope="row">Catégorie</th>
+							<td></td>
+							<td>{{ ad.category.name }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">Année</th>
+							<td></td>
+							<td>{{ ad.year }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">Boite de Vitesse</th>
+							<td></td>
+							<td>{{ ad.gearbox.name }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">Craburant</th>
+							<td></td>
+							<td>{{ ad.fuel.name }}</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">Note</th>
+							<td></td>
+							<td>
+								{% for i in 1..5 %}
+									<i class="fas fa-star"></i>
+								{% endfor %}
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">Description</th>
+							<td></td>
+							<td>{{ ad.description }}</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="container mt-5">
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+					<div class="tile">
+						<div class="wrapper">
+							<div class="header">
+								<h3>90 &euro;</h3>
+							</div>
+							<div class="dates">
+								<div class="start">
+									<strong>Début</strong>
+									1-6-2021
+									<span></span>
 								</div>
+								<div class="ends">
+									<strong>Fin</strong>
+									6-6-2021
+								</div>
+							</div>
+							<div class="footer">
+								<a href="#" class="Cbtn Cbtn-primary">Reserver</a>
 							</div>
 						</div>
 					</div>
-				{% endif %}
-			{% endfor %}
+				</div>
+			</div>
+			<div class="container mt-5">
+				<p class="lead">Commentaires</p>
+				<div class="form-group">
+					<textarea class="form-control" id="bio" rows="3"></textarea>
+					<button type="submit" class="btn btn-primary" style="margin-top:5px;">Commenter</button>
+				</div>
+				{% for comment in ad.comments %}
+					{% if comment.parent == null %}
+						<div class="row d-flex justify-content-center">
+							<div class="col-md-8">
+								<div class="card p-3">
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="user d-flex flex-row align-items-center">
+											<img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+											<span>
+												<small class="font-weight-bold text-primary">{{ comment.author.firstname }}</small>
+												<small class="font-weight-bold">{{ comment.content }}</small>
+											</span>
+										</div>
+										<small>le 11 mai 2021</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 {% endblock %}

@@ -1,7 +1,8 @@
-<!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
 			{% block title %}Swapcar
 			{% endblock %}
@@ -17,16 +18,73 @@
 
 
 		<script src="https://cdn.jsdelivr.net/npm/axentix@1.2.1/dist/js/axentix.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 		{% block javascripts %}{% endblock %}
 		<script src="{{ asset('js/scripts.js') }}"></script>
 	</head>
+
 	<body style="background-color: white;">
 		{% include "partials/_navbar.html.twig" %}
-		<div class="container pt-5"> {% block body %}{% endblock %}
-			</div>
-		</body>
-		{% block footer %}
-			{% include "partials/_footer.html.twig" %}
-		{% endblock %}
+		{% block body %}{% endblock %}
 
-	</html>
+	</body>
+
+	<!-- Site footer -->
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-6">
+					<h6>Contacts</h6>
+					<p class="text-justify"></p>
+					<p>3 Avenue Louise, Bruxelles</p>
+					<p>Tél: 02 450 45 45</p>
+					<p>Fax: 02 00 00 00</p>
+					<p>Mail: info-swapcar@gmail.com</p>
+				</p>
+			</div>
+
+			<div class="col-xs-6 col-md-3"></div>
+
+			<div class="col-xs-6 col-md-3">
+				<h6>À propos</h6>
+				<ul class="footer-links">
+					<li>
+						<a href="http://scanfcode.com/privacy-policy/">Mentions légales</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<hr>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-sm-6 col-xs-12">
+				<p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by
+					<strong>Swapcar.</strong>
+				</p>
+			</div>
+
+			<div class="col-md-4 col-sm-6 col-xs-12">
+				<ul class="social-icons">
+					<li>
+						<a class="facebook" href="#">
+							<i class="fa fa-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a class="twitter" href="#">
+							<i class="fa fa-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a class="dribbble" href="#">
+							<i class="fa fa-instagram"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</html></footer></html>

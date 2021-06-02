@@ -5,32 +5,39 @@
 
 {% block body %}
 
-
-	<div class="jumbotron">
-		<h1 class="display-3">Page d'accueil du site</h1>
-		<p class="lead">Bienvenue sur le projet</p>
-		<hr class="my-4">
-	</div>
-	<h2>Les Meilleures Annonces</h2>
-	<div class="row mt-5">
-		{% for i in 1..4 %}
-			<div class="col-md-4">
-				<div class="card mb-3">
-					<img src="https://picsum.photos/200/200" class="img-fluid" alt="Image du produit">
-					<div class="card-body">
-						<h4 class="card-title">Titre de l'annonce n.{{ i }}</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, iste.</p>
-						<p class="card-text">
-							{% for i in 1..5 %}
-								<i class="fas fa-star"></i>
-							{% endfor %}
-						</p>
-						<p class="card-text">20 &euro;</p>
-						<a href="#" class="btn btn-primary">En savoir plus !</a>
-					</div>
-				</div>
+	<div>
+		<form style="position: relative;" method="POST" action="">
+			<img src="../images/bmw.jpg" alt="Image de fond" style="height: 900px; width:100%; display: block">
+			<div style="position: absolute; left: 100px; top: 150px; color: white;">
+				<h1 style="font-size: 70px;">Bienvenue sur SwapCar</h1>
+				<h3>Vous cherchez un véhicule ? Empruntez-le !</h3>
 			</div>
-		{% endfor %}
+		</form>
 	</div>
+
+
+	<!-- 
+										<header class="masthead" style="height: 100vh; min-height: 500px;background-image: url('https://www.bmw.in/content/dam/bmw/marketIN/bmw_in/Images/all-models/BMW%20Series/bmw-2-series/Main%20Banner%20Desktop.jpg');background-size: cover;
+																																	  									background-position: center;
+																																	  										background-repeat: no-repeat;">
+											<div class="container h-100">
+												<div class="row h-100 align-items-center">
+													<div class="col-12 text-center">
+														<h1 class="font-weight-light">Vertically Centered Masthead Content</h1>
+														<p class="lead">A great starter layout for a landing page</p>
+													</div>
+												</div>
+											</div>
+										</header>
+										-->
+<!-- Page Content -->
+	<!--
+										<section class="py-5">
+											<div class="container">
+												<h2 class="font-weight-light">Page Content</h2>
+												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
+											</div>
+										</section>
+										-->
 
 {% endblock %}

@@ -36,6 +36,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min = 8)
      */
     private $password;
 
@@ -50,9 +51,26 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="booker")
+     */
+    private $bookings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Ad::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $ads;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $rgpd;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
+        $this->ads = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,6 +192,78 @@ class User implements UserInterface
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Booking[]
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setBooker($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getBooker() === $this) {
+                $booking->setBooker(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ad[]
+     */
+    public function getAds(): Collection
+    {
+        return $this->ads;
+    }
+
+    public function addAd(Ad $ad): self
+    {
+        if (!$this->ads->contains($ad)) {
+            $this->ads[] = $ad;
+            $ad->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAd(Ad $ad): self
+    {
+        if ($this->ads->removeElement($ad)) {
+            // set the owning side to null (unless already changed)
+            if ($ad->getAuthor() === $this) {
+                $ad->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRgpd(): ?bool
+    {
+        return $this->rgpd;
+    }
+
+    public function setRgpd(bool $rgpd): self
+    {
+        $this->rgpd = $rgpd;
 
         return $this;
     }

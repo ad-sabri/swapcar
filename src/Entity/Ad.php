@@ -35,6 +35,11 @@ class Ad
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\Range(
+     *      min = 1998,
+     *      max = 2021,
+     *      notInRangeMessage = "L'année du véhicule doit être comprise entre {{ min }} et {{ max }}",
+     * )
      */
     private $year;
 
@@ -76,10 +81,34 @@ class Ad
      */
     private $bookings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="ad", cascade={"persist"})
+     */
+    private $images;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Brand::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $brand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Locality::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $locality;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,6 +302,72 @@ class Ad
                 $booking->setAd(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAd() === $this) {
+                $image->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): self
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getLocality(): ?Locality
+    {
+        return $this->locality;
+    }
+
+    public function setLocality(?Locality $locality): self
+    {
+        $this->locality = $locality;
 
         return $this;
     }
