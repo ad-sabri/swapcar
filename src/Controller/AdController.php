@@ -55,8 +55,8 @@ class AdController extends AbstractController
         //Formulaire pour entrer les dates
         $form = $this->createFormBuilder()
             ->setMethod('GET')
-            ->add('startDate', DateType::class, ['widget' => "single_text"])
-            ->add('endDate', DateType::class, ['widget' => "single_text"])
+            ->add('startDate', DateType::class, ['label' => 'Date de début', 'widget' => "single_text"])
+            ->add('endDate', DateType::class, ['label' => 'Date de fin', 'widget' => "single_text"])
             ->add('save', SubmitType::class, ['label' => 'Rechercher une annonce'])
             ->getForm();
 
@@ -70,7 +70,7 @@ class AdController extends AbstractController
         }
 
         return $this->render('ad/search.html.twig', [
-            'formulaire' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -115,7 +115,8 @@ class AdController extends AbstractController
             return $day->format('Y-m-d');
         }, $reservation);
 
-        //dd($stringReservation);
+        $period = (count($stringReservation));
+
         $libres = [];
 
         foreach ($ads as $ad) {
@@ -139,7 +140,8 @@ class AdController extends AbstractController
             'ads' => $ads,
             'ad' => $ad,
             'libres' => $libres,
-            'start' => $start
+            'start' => $start,
+            'period' => $period
 
         ]);
     }

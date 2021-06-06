@@ -8,11 +8,16 @@
 	<div class="container mt-5">
 		<h1>Rechercher une annonce</h1>
 
-		<div>
-			{{ form(formulaire) }}
+		<div class="row" style="margin-top: 50px;">
+			<div class="col">
+				{{ form_row(form.startDate) }}
 			</div>
-
+			<div class="col">
+				{{ form_row(form.endDate) }}
+			</div>
 		</div>
+		<div>{{ form_row(form.save) }}</div>
+	</div>
 
 
-	{% endblock %}
+{% endblock %}

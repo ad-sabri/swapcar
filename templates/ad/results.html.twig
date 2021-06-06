@@ -25,7 +25,7 @@
 								{% endfor %}
 							</p>
 							<p class="price-ads">
-								<strong>{{ libre.price }}</strong>
+								<strong>{{ period * libre.price }}</strong>
 								&euro;
 							</p>
 							<a href="{{ path('ad_show', {'slug': libre.slug}) }}" class="btn btn-primary">Accèder à l'annonce</a>
