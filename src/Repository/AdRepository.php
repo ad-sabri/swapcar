@@ -19,6 +19,18 @@ class AdRepository extends ServiceEntityRepository
         parent::__construct($registry, Ad::class);
     }
 
+    /**
+     * @return int
+     */
+    public function countAllAds()
+    {
+
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder->select('COUNT(a.id) as value');
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
     // /**
     //  * @return Ad[] Returns an array of Ad objects
     //  */

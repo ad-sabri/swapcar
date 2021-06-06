@@ -8,16 +8,46 @@
 {% block body %}
 	<div class="container mt-5">
 
-		<h1>{{ ad.title }}</h1>
+		<h1 style="margin-bottom:50px;">{{ ad.title }}</h1>
 
 
 		<div class="row">
-			<div class="col-4">
-				<img class="img-fluid" src="https://picsum.photos/400/400" alt="image test">
+			<div class="col-6">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+					<ol class="carousel-indicators">
+						{% for image in ad.images %}
+							<li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0 }}" {% if loop.first %} class="active" {% endif %}></li>
+						{% endfor %}
+					</ol>
+
+					<div class="carousel-inner">
+						{% for image in ad.images %}
+							<div class="carousel-item {% if loop.first %} active {% endif %}">
+								<img class="d-block w-100" src="{{ asset('/uploads/' ~ image.name)}}" alt="First slide">
+							</div>
+						{% endfor %}
+					</div>
+
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Précédente</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Suivante</span>
+					</a>
+				</div>
 			</div>
 			<div class="col-6">
 				<table class="table table-hover">
 					<tbody>
+						<tr>
+							<th scope="row">Marque</th>
+							<td></td>
+							<td>{{ ad.brand.title }}</td>
+							<td></td>
+						</tr>
 						<tr>
 							<th scope="row">Catégorie</th>
 							<td></td>

@@ -8,30 +8,38 @@
 	<div class="container mt-5">
 		<h3>Annonces disponibles cette période:
 		</h3>
-
-		<div class="row">
+		<div class="row" style="margin-bottom:20px;">
 			{% for libre in libres %}
 				<div class="col-md-4">
 					<div class="card" style="border-radius: 20px; margin-top: 30px;">
-						<img src="https://picsum.photos/200/200" class="img-fluid" alt="Image du produit">
+						<img src="{{ asset('uploads/' ~ libre.images[0].name )}}" class="img-fluid" alt="Image principale">
 						<div class="card-body">
 							<h5 class="card-title">{{ libre.title }}</h5>
 							<p class="lead">
 								<i class="fas fa-map-pin"></i>
-								<small>Locality</small>
+								{{ libre.locality.name }}
 							</p>
 							<p class="card-text">
 								{% for i in 1..5 %}
 									<i class="fas fa-star"></i>
 								{% endfor %}
 							</p>
-							<p>X &euro;
+							<p class="price-ads">
+								<strong>{{ libre.price }}</strong>
+								&euro;
 							</p>
 							<a href="{{ path('ad_show', {'slug': libre.slug}) }}" class="btn btn-primary">Accèder à l'annonce</a>
 						</div>
 					</div>
 				</div>
+
 			{% endfor %}
+
 		</div>
+
+		<div class="d-flex justify-content-center" style="margin-top:10px;">
+			{{ knp_pagination_render(libres, 'partials/_pagination.html.twig') }}
+		</div>
+
 	</div>
 {% endblock %}

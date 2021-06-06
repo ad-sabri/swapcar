@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container" style="margin-bottom: 150px;">
+	<div class="container" style="margin-bottom: 400px;">
 		<h1 style="margin:50px;">Mon Profil</h1>
 
 		<div class="row">
@@ -13,17 +13,13 @@
 			<div class="col md-6">
 				<div>
 					<p>Prénom:
-						{#{ app.user.firstname }#}
+						{{ app.user.firstname }}
 					</p>
-					<p>Nom:
-						{#{ app.user.lastname }#}
-					</p>
+
 					<p>Mail:
-						{#{ app.user.mail }#}
+						{{ app.user.email }}
 					</p>
-					<p>Tél:
-						{#{ app.user.phone }#}
-					</p>
+
 				</div>
 			</div>
 		</div>

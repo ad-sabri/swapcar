@@ -2,20 +2,22 @@
 
 namespace App\Controller;
 
+use ArrayObject;
 use App\Entity\Ad;
 use App\Entity\Fuel;
 use App\Entity\User;
 use App\Form\AdType;
+use App\Entity\Images;
 use App\Entity\Comment;
 use App\Entity\Gearbox;
 use App\Entity\Category;
 use App\Form\CommentType;
 use Cocur\Slugify\Slugify;
+use PhpParser\Node\Stmt\Break_;
 use App\Repository\AdRepository;
 use App\Repository\CommentRepository;
-use ArrayObject;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Stmt\Break_;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +39,7 @@ class AdController extends AbstractController
     public function index(AdRepository $repo, Request $request): Response
     {
         $ads = $repo->findAll();
+        //dd($ads);
 
         return $this->render('ad/index.html.twig', [
             'controller_name' => 'AdController',
@@ -75,7 +78,7 @@ class AdController extends AbstractController
      * @Route("/booking/results", name="ad_results")
      */
 
-    public function transform(Request $request, AdRepository $repo)
+    public function results(Request $request, AdRepository $repo, PaginatorInterface $paginator)
     {
         $ads = $repo->findAll();
         $data = $request->query->all();
@@ -125,13 +128,18 @@ class AdController extends AbstractController
             }
         }
 
+        $libres = $paginator->paginate(
+            $libres, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            6/*limit per page*/
+        );
+
         return $this->render('ad/results.html.twig', [
             'reservation' => $reservation,
-            'debut' => $stringReservation[0],
-            'fin' => $stringReservation[(count($stringReservation) - 1)],
             'ads' => $ads,
             'ad' => $ad,
             'libres' => $libres,
+            'start' => $start
 
         ]);
     }
@@ -158,15 +166,33 @@ class AdController extends AbstractController
             $title = $form->get('title')->getData();
 
             $slug = $slugify->slugify($title);
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $image) {
+
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                $img = new Images();
+                $img->setName($fichier);
+                $ad->addImage($img);
+            }
 
             $ad->setSlug($slug);
             $ad->setAuthor($user);
 
             $em->persist($ad);
-
             $em->flush();
 
-            return $this->redirectToRoute("home");
+            $this->addFlash('success', 'Votre annonce est crée !');
+
+            return $this->redirectToRoute("ad_show", [
+                'slug' => $ad->getSlug()
+            ]);
         }
 
         $formView = $form->createView();
@@ -209,7 +235,7 @@ class AdController extends AbstractController
                 $parent = $em->getRepository(Comment::class)->find($parentid);
             }
 
-
+            $images = $ad->getImages();
             $comment->setParent($parent ?? null);
 
             //dd($comment);

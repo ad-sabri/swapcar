@@ -9,9 +9,15 @@
 		</title>
 
 		{% block stylesheets %}
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 			<link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+
+			<link rel="preconnect" href="https://fonts.gstatic.com">
+			<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 		{% endblock %}
 
 		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -25,66 +31,9 @@
 		<script src="{{ asset('js/scripts.js') }}"></script>
 	</head>
 
-	<body style="background-color: white;">
+	<body style="background-color: white; position: relative;">
 		{% include "partials/_navbar.html.twig" %}
 		{% block body %}{% endblock %}
-
+		{% include "partials/_footer.html.twig" %}
 	</body>
-
-	<!-- Site footer -->
-	<footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12 col-md-6">
-					<h6>Contacts</h6>
-					<p class="text-justify"></p>
-					<p>3 Avenue Louise, Bruxelles</p>
-					<p>Tél: 02 450 45 45</p>
-					<p>Fax: 02 00 00 00</p>
-					<p>Mail: info-swapcar@gmail.com</p>
-				</p>
-			</div>
-
-			<div class="col-xs-6 col-md-3"></div>
-
-			<div class="col-xs-6 col-md-3">
-				<h6>À propos</h6>
-				<ul class="footer-links">
-					<li>
-						<a href="http://scanfcode.com/privacy-policy/">Mentions légales</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<hr>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-sm-6 col-xs-12">
-				<p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by
-					<strong>Swapcar.</strong>
-				</p>
-			</div>
-
-			<div class="col-md-4 col-sm-6 col-xs-12">
-				<ul class="social-icons">
-					<li>
-						<a class="facebook" href="#">
-							<i class="fa fa-facebook"></i>
-						</a>
-					</li>
-					<li>
-						<a class="twitter" href="#">
-							<i class="fa fa-twitter"></i>
-						</a>
-					</li>
-					<li>
-						<a class="dribbble" href="#">
-							<i class="fa fa-instagram"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</html></footer></html>
+</html>
